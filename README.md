@@ -20,7 +20,7 @@ Features
   
 Simple tutorial
 ========
-####1.Define an obj interface
+#### 1.Define an obj interface
 ```java
 public interface IHelloWordObj {
 	String hello(String msg);
@@ -29,7 +29,7 @@ public interface IHelloWordObj {
 }
 ```
   
-####2.Implements the previous defined interface
+#### 2.Implements the previous defined interface
 ```java
 public class HelloWorldObj implements IHelloWordObj {
 	@Override
@@ -47,7 +47,7 @@ public class HelloWorldObj implements IHelloWordObj {
 }
 ```
 
-####3. Update configuration file and start the server "com.lubin.rpc.server.RPCServer"
+#### 3. Update configuration file and start the server "com.lubin.rpc.server.RPCServer"
 ```javascript
 server {
 	port = 9090
@@ -76,7 +76,7 @@ client {
 ```
 
 
-####4.Synchronous call. Create an Obj proxy and call the remote Obj.
+#### 4.Synchronous call. Create an Obj proxy and call the remote Obj.
 ```java
     IHelloWordObj client = RPCClient.proxyBuilder(IHelloWordObj.class)
     					            .withServerNode("127.0.0.1", 9090)
@@ -84,8 +84,8 @@ client {
     String result = client.hello("hello world!");
 ```
 
-####5. Asynchronous call
-#####5.1.
+#### 5. Asynchronous call
+##### 5.1.
 ```java
     IAsyncObjectProxy asyncClient = RPCClient.proxyBuilder(IHelloWordObj.class)
     					                     .withServerNode
@@ -97,7 +97,7 @@ client {
     Object res2= testFuture.get(3000, TimeUnit.MILLISECONDS);
 
 ```
-#####5.2. Optionally you can provide a callback which will be automatically called by NettyRPC after received response from server.
+##### 5.2. Optionally you can provide a callback which will be automatically called by NettyRPC after received response from server.
 ```java
 public class AsyncHelloWorldCallback implements AsyncRPCCallback {
 	@Override
@@ -119,7 +119,7 @@ public class AsyncHelloWorldCallback implements AsyncRPCCallback {
     						           .addCallback(new AsyncHelloWorldCallback());
 ```
 
-####6.Oneway call
+#### 6.Oneway call
 ```java
     IAsyncObjectProxy asyncClient = RPCClient.proxyBuilder(IHelloWordObj.class)
     						                 .withServerNode("127.0.0.1", 9090)
@@ -127,7 +127,7 @@ public class AsyncHelloWorldCallback implements AsyncRPCCallback {
     asyncClient.notify("notifySomeThing", 1, "hello world!", 2L);
 ```
 
-####7 High availability, you can deploy more than one servers to achieve HA, NettyRPC handle load balance and failover automatically.  
+#### 7 High availability, you can deploy more than one servers to achieve HA, NettyRPC handle load balance and failover automatically.  
 ```java
     ArrayList<InetSocketAddress> serverNodeList = new ArrayList<InetSocketAddress>();
     serverNodeList.add(new InetSocketAddress("127.0.0.1",9090));
@@ -139,7 +139,7 @@ public class AsyncHelloWorldCallback implements AsyncRPCCallback {
     System.out.println("test server list:"+client.hello("test server list11"));
 ```
 
-####8 Service Discovery support
+#### 8 Service Discovery support
 Instead of hard coding the server address in config file( or java source code), NettyRPC support service discovery. 
 All Services will automatically register themself to registry(Zookeeper) after services started,  and NettyRPC client will automatically query addresses from the registry.
 If you want to scale out and deploy more server, you just simply start the new services, NettyRPC client will automatically got notified and dispatch requests to that new services.
